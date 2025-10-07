@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🚀 Dev Whiz | Regular Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background: #0d0d0d;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .dev-logo {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, orange, red, gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .calculator {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.7);
+      width: 300px;
+    }
+
+    .display {
+      background: #000;
+      color: #0f0;
+      font-size: 2rem;
+      text-align: right;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #ff6600;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="dev-logo">🚀 Dev Whiz</div>
+
+  <div class="calculator">
+    <input type="text" id="display" class="display" disabled />
+
+    <div class="buttons">
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button onclick="press('/')">÷</button>
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button onclick="press('*')">×</button>
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button onclick="press('-')">−</button>
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="press('+')">+</button>
+      <button onclick="clearDisplay()" style="grid-column: span 4; background:#880000">CLEAR</button>
+    </div>
+  </div>
+
+  <div class="footer">© 🚀 Dev Whiz | 2025</div>
+
+  <script>
+    let display = localStorage.getItem("lastDisplay") || "";
+
+    document.getElementById("display").value = display;
+
+    function press(val) {
+      display += val;
+      document.getElementById("display").value = display;
+      localStorage.setItem("lastDisplay", display);
+    }
+
+    function calculate() {
+      try {
+        display = eval(display).toString();
+        document.getElementById("display").value = display;
+        localStorage.setItem("lastDisplay", display);
+      } catch {
+        display = "";
+        document.getElementById("display").value = "Error";
+        localStorage.removeItem("lastDisplay");
+      }
+    }
+
+    function clearDisplay() {
+      display = "";
+      document.getElementById("display").value = "";
+      localStorage.removeItem("lastDisplay");
+    }
+  </script>
+</body>
+</html>
